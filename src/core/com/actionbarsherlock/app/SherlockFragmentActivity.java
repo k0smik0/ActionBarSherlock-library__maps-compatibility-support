@@ -14,11 +14,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import static com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
-import static com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
-
 /** @see {@link android.support.v4.app.Watson} */
-public class SherlockFragmentActivity extends Watson implements OnActionModeStartedListener, OnActionModeFinishedListener {
+public class SherlockFragmentActivity extends Watson implements ISherlockActivity {
     private static final boolean DEBUG = false;
     private static final String TAG = "SherlockFragmentActivity";
 

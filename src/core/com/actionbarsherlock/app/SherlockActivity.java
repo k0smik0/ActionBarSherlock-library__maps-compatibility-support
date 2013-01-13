@@ -5,20 +5,16 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+
 import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
-import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public abstract class SherlockActivity extends Activity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
+public abstract class SherlockActivity extends Activity implements ISherlockActivity {
     private ActionBarSherlock mSherlock;
 
     protected final ActionBarSherlock getSherlock() {
@@ -140,7 +136,7 @@ public abstract class SherlockActivity extends Activity implements OnCreatePanel
         getSherlock().dispatchInvalidateOptionsMenu();
     }
 
-    public void supportInvalidateOptionsMenu() {
+	public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
     }
 

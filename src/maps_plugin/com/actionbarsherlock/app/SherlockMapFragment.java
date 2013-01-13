@@ -1,14 +1,16 @@
 package com.actionbarsherlock.app;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.MapFragment;
+
+import com.actionbarsherlock.app.SherlockListeners.SherlockListenerFragment;
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class SherlockFragment extends Fragment implements ISherlockFragment {
+public abstract class SherlockMapFragment extends MapFragment implements SherlockListenerFragment {
     private SherlockFragmentActivity mActivity;
 
     public SherlockFragmentActivity getSherlockActivity() {

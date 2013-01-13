@@ -2,17 +2,14 @@ package com.actionbarsherlock.app;
 
 import android.app.Activity;
 import android.support.v4.app.DialogFragment;
+
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import static com.actionbarsherlock.app.SherlockFragmentActivity.OnCreateOptionsMenuListener;
-import static com.actionbarsherlock.app.SherlockFragmentActivity.OnOptionsItemSelectedListener;
-import static com.actionbarsherlock.app.SherlockFragmentActivity.OnPrepareOptionsMenuListener;
-
-public class SherlockDialogFragment extends DialogFragment implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
+public class SherlockDialogFragment extends DialogFragment implements ISherlockFragment {
     private SherlockFragmentActivity mActivity;
 
     public SherlockFragmentActivity getSherlockActivity() {

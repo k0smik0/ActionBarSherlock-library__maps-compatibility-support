@@ -1,5 +1,6 @@
 package android.support.v4.app;
 
+import android.support.v4.app.FragmentMapActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +13,7 @@ import com.actionbarsherlock.view.MenuItem;
 import java.util.ArrayList;
 
 /** I'm in ur package. Stealing ur variables. */
-public abstract class Watson extends FragmentActivity implements SherlockListenerActivity, SherlockSupportMenuInflater {
+public abstract class WatsonMap extends FragmentMapActivity implements SherlockListenerActivity, SherlockSupportMenuInflater {
 	
     private static final boolean DEBUG = false;
     private static final String TAG = "Watson";
@@ -134,4 +135,11 @@ public abstract class Watson extends FragmentActivity implements SherlockListene
         return false;
     }
 
+    /*public abstract boolean onCreateOptionsMenu(Menu menu);
+
+    public abstract boolean onPrepareOptionsMenu(Menu menu);
+
+    public abstract boolean onOptionsItemSelected(MenuItem item);
+
+    public abstract MenuInflater getSupportMenuInflater();*/
 }

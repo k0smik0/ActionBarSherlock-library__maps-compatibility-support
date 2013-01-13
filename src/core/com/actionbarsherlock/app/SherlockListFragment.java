@@ -8,11 +8,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import static com.actionbarsherlock.app.SherlockFragmentActivity.OnCreateOptionsMenuListener;
-import static com.actionbarsherlock.app.SherlockFragmentActivity.OnOptionsItemSelectedListener;
-import static com.actionbarsherlock.app.SherlockFragmentActivity.OnPrepareOptionsMenuListener;
-
-public class SherlockListFragment extends ListFragment implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
+public class SherlockListFragment extends ListFragment implements ISherlockFragment {
     private SherlockFragmentActivity mActivity;
 
     public SherlockFragmentActivity getSherlockActivity() {

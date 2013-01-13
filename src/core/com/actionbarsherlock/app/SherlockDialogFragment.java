@@ -8,19 +8,24 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class SherlockDialogFragment extends DialogFragment implements ISherlockFragment {
-    private ISherlockActivity mActivity;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnCreateOptionsMenuListener;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnOptionsItemSelectedListener;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnPrepareOptionsMenuListener;
 
-    public ISherlockActivity getSherlockActivity() {
+public class SherlockDialogFragment extends DialogFragment implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
+    private SherlockFragmentActivity mActivity;
+
+    public SherlockFragmentActivity getSherlockActivity() {
         return mActivity;
     }
 
     @Override
     public void onAttach(Activity activity) {
-        if (!(activity instanceof ISherlockActivity)) {
-            throw new IllegalStateException(getClass().getSimpleName() + " must be attached to a ISherlockActivity.");
+        if (!(activity instanceof SherlockFragmentActivity)) {
+            throw new IllegalStateException(getClass().getSimpleName() + " must be attached to a SherlockFragmentActivity.");
         }
-        mActivity = (ISherlockActivity)activity;
+        mActivity = (SherlockFragmentActivity)activity;
+
         super.onAttach(activity);
     }
 

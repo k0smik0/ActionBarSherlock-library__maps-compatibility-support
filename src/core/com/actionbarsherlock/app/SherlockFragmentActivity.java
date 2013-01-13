@@ -8,15 +8,17 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
-
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-/** @see {@link Watson} */
-public class SherlockFragmentActivity extends Watson implements ISherlockActivity {
+import static com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
+import static com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
+
+/** @see {@link android.support.v4.app.Watson} */
+public class SherlockFragmentActivity extends Watson implements OnActionModeStartedListener, OnActionModeFinishedListener {
     private static final boolean DEBUG = false;
     private static final String TAG = "SherlockFragmentActivity";
 
@@ -24,25 +26,23 @@ public class SherlockFragmentActivity extends Watson implements ISherlockActivit
     private boolean mIgnoreNativeCreate = false;
     private boolean mIgnoreNativePrepare = false;
     private boolean mIgnoreNativeSelected = false;
-	
-    //@Override
+
     protected final ActionBarSherlock getSherlock() {
         if (mSherlock == null) {
             mSherlock = ActionBarSherlock.wrap(this, ActionBarSherlock.FLAG_DELEGATE);
-        }        
+        }
         return mSherlock;
     }
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Action bar and mode
     ///////////////////////////////////////////////////////////////////////////
 
-    @Override
     public ActionBar getSupportActionBar() {
         return getSherlock().getActionBar();
     }
 
-    @Override
     public ActionMode startActionMode(ActionMode.Callback callback) {
         return getSherlock().startActionMode(callback);
     }
@@ -122,24 +122,34 @@ public class SherlockFragmentActivity extends Watson implements ISherlockActivit
         return super.dispatchKeyEvent(event);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSherlock().dispatchSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        getSherlock().dispatchRestoreInstanceState(savedInstanceState);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Native menu handling
     ///////////////////////////////////////////////////////////////////////////
 
-    @Override
     public MenuInflater getSupportMenuInflater() {
         if (DEBUG) Log.d(TAG, "[getSupportMenuInflater]");
 
         return getSherlock().getMenuInflater();
     }
-    @Override
+
     public void invalidateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[invalidateOptionsMenu]");
 
         getSherlock().dispatchInvalidateOptionsMenu();
     }
-    @Override
+
     public void supportInvalidateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[supportInvalidateOptionsMenu]");
 
@@ -224,15 +234,15 @@ public class SherlockFragmentActivity extends Watson implements ISherlockActivit
     ///////////////////////////////////////////////////////////////////////////
     // Sherlock menu handling
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
-    @Override
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
-    @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }
@@ -261,7 +271,7 @@ public class SherlockFragmentActivity extends Watson implements ISherlockActivit
     public void setContentView(View view) {
         getSherlock().setContentView(view);
     }
-    @Override
+
     public void requestWindowFeature(long featureId) {
         getSherlock().requestFeature((int)featureId);
     }
@@ -270,23 +280,23 @@ public class SherlockFragmentActivity extends Watson implements ISherlockActivit
     ///////////////////////////////////////////////////////////////////////////
     // Progress Indication
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public void setSupportProgress(int progress) {
         getSherlock().setProgress(progress);
     }
-    @Override
+
     public void setSupportProgressBarIndeterminate(boolean indeterminate) {
         getSherlock().setProgressBarIndeterminate(indeterminate);
     }
-    @Override
+
     public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
         getSherlock().setProgressBarIndeterminateVisibility(visible);
     }
-    @Override
+
     public void setSupportProgressBarVisibility(boolean visible) {
         getSherlock().setProgressBarVisibility(visible);
     }
-    @Override
+
     public void setSupportSecondaryProgress(int secondaryProgress) {
         getSherlock().setSecondaryProgress(secondaryProgress);
     }

@@ -8,12 +8,17 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public abstract class SherlockPreferenceActivity extends PreferenceActivity implements ISherlockActivity {
+public abstract class SherlockPreferenceActivity extends PreferenceActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     private ActionBarSherlock mSherlock;
 
     protected final ActionBarSherlock getSherlock() {
@@ -27,11 +32,11 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
     ///////////////////////////////////////////////////////////////////////////
     // Action bar and mode
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public ActionBar getSupportActionBar() {
         return getSherlock().getActionBar();
     }
-    @Override
+
     public ActionMode startActionMode(ActionMode.Callback callback) {
         return getSherlock().startActionMode(callback);
     }
@@ -111,19 +116,30 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
         return super.dispatchKeyEvent(event);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSherlock().dispatchSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        getSherlock().dispatchRestoreInstanceState(savedInstanceState);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Native menu handling
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public MenuInflater getSupportMenuInflater() {
         return getSherlock().getMenuInflater();
     }
-    @Override
+
     public void invalidateOptionsMenu() {
         getSherlock().dispatchInvalidateOptionsMenu();
     }
-    @Override
+
     public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
     }
@@ -181,7 +197,7 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
         }
         return false;
     }
-    @Override
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
@@ -222,7 +238,7 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
     public void setContentView(View view) {
         getSherlock().setContentView(view);
     }
-    @Override
+
     public void requestWindowFeature(long featureId) {
         getSherlock().requestFeature((int)featureId);
     }
@@ -231,23 +247,23 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
     ///////////////////////////////////////////////////////////////////////////
     // Progress Indication
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public void setSupportProgress(int progress) {
         getSherlock().setProgress(progress);
     }
-    @Override
+
     public void setSupportProgressBarIndeterminate(boolean indeterminate) {
         getSherlock().setProgressBarIndeterminate(indeterminate);
     }
-    @Override
+
     public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
         getSherlock().setProgressBarIndeterminateVisibility(visible);
     }
-    @Override
+
     public void setSupportProgressBarVisibility(boolean visible) {
         getSherlock().setProgressBarVisibility(visible);
     }
-    @Override
+
     public void setSupportSecondaryProgress(int secondaryProgress) {
         getSherlock().setSecondaryProgress(secondaryProgress);
     }

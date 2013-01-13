@@ -1,29 +1,37 @@
 package android.support.v4.app;
 
-import java.util.ArrayList;
-
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-
-import com.actionbarsherlock.app.SherlockListeners.SherlockListenerActivity;
-import com.actionbarsherlock.app.SherlockSupports;
-import com.actionbarsherlock.app.SherlockSupports.ActivitySupport.SherlockSupportMenuInflater;
+import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-/** I'm in ur package. Stealing ur variables. */
-public abstract class Watson extends FragmentActivity implements 
+import java.util.ArrayList;
 
-SherlockListenerActivity,
-SherlockSupportMenuInflater
-{
-		
+/** I'm in ur package. Stealing ur variables. */
+public abstract class Watson extends FragmentActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener {
     private static final boolean DEBUG = false;
-    private static final String TAG = "Watson";    
+    private static final String TAG = "Watson";
+
+    /** Fragment interface for menu creation callback. */
+    public interface OnCreateOptionsMenuListener {
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater);
+    }
+    /** Fragment interface for menu preparation callback. */
+    public interface OnPrepareOptionsMenuListener {
+        public void onPrepareOptionsMenu(Menu menu);
+    }
+    /** Fragment interface for menu item selection callback. */
+    public interface OnOptionsItemSelectedListener {
+        public boolean onOptionsItemSelected(MenuItem item);
+    }
 
     private ArrayList<Fragment> mCreatedMenus;
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Sherlock menu handling
@@ -40,12 +48,12 @@ SherlockSupportMenuInflater
             MenuInflater inflater = getSupportMenuInflater();
             boolean show = false;
             ArrayList<Fragment> newMenus = null;
-            if (mFragments.mActive != null) {
+            if (mFragments.mAdded != null) {
                 for (int i = 0; i < mFragments.mAdded.size(); i++) {
                     Fragment f = mFragments.mAdded.get(i);
-                    if (f != null && !f.mHidden && f.mHasMenu && f.mMenuVisible && f instanceof SherlockSupports.FragmentSupport.OnCreateOptionsMenuListener) {
+                    if (f != null && !f.mHidden && f.mHasMenu && f.mMenuVisible && f instanceof OnCreateOptionsMenuListener) {
                         show = true;
-                        ((SherlockSupports.FragmentSupport.OnCreateOptionsMenuListener)f).onCreateOptionsMenu(menu, inflater);
+                        ((OnCreateOptionsMenuListener)f).onCreateOptionsMenu(menu, inflater);
                         if (newMenus == null) {
                             newMenus = new ArrayList<Fragment>();
                         }
@@ -83,12 +91,12 @@ SherlockSupportMenuInflater
             if (DEBUG) Log.d(TAG, "[onPreparePanel] activity prepare result: " + result);
 
             boolean show = false;
-            if (mFragments.mActive != null) {
+            if (mFragments.mAdded != null) {
                 for (int i = 0; i < mFragments.mAdded.size(); i++) {
                     Fragment f = mFragments.mAdded.get(i);
-                    if (f != null && !f.mHidden && f.mHasMenu && f.mMenuVisible && f instanceof SherlockSupports.FragmentSupport.OnPrepareOptionsMenuListener) {
+                    if (f != null && !f.mHidden && f.mHasMenu && f.mMenuVisible && f instanceof OnPrepareOptionsMenuListener) {
                         show = true;
-                        ((SherlockSupports.FragmentSupport.OnPrepareOptionsMenuListener)f).onPrepareOptionsMenu(menu);
+                        ((OnPrepareOptionsMenuListener)f).onPrepareOptionsMenu(menu);
                     }
                 }
             }
@@ -112,11 +120,11 @@ SherlockSupportMenuInflater
                 return true;
             }
 
-            if (mFragments.mActive != null) {
+            if (mFragments.mAdded != null) {
                 for (int i = 0; i < mFragments.mAdded.size(); i++) {
                     Fragment f = mFragments.mAdded.get(i);
-                    if (f != null && !f.mHidden && f.mHasMenu && f.mMenuVisible && f instanceof SherlockSupports.FragmentSupport.OnOptionsItemSelectedListener) {
-                        if (((SherlockSupports.FragmentSupport.OnOptionsItemSelectedListener)f).onOptionsItemSelected(item)) {
+                    if (f != null && !f.mHidden && f.mHasMenu && f.mMenuVisible && f instanceof OnOptionsItemSelectedListener) {
+                        if (((OnOptionsItemSelectedListener)f).onOptionsItemSelected(item)) {
                             return true;
                         }
                     }
@@ -125,15 +133,12 @@ SherlockSupportMenuInflater
         }
         return false;
     }
-    
-    //protected abstract ActionBarSherlock getSherlock();
 
-    //@Override
-    //public abstract boolean onCreateOptionsMenu(Menu menu);
+    public abstract boolean onCreateOptionsMenu(Menu menu);
 
-    //public abstract boolean onPrepareOptionsMenu(Menu menu);
+    public abstract boolean onPrepareOptionsMenu(Menu menu);
 
-    //public abstract boolean onOptionsItemSelected(MenuItem item);
+    public abstract boolean onOptionsItemSelected(MenuItem item);
 
-    //public abstract MenuInflater getSupportMenuInflater();
+    public abstract MenuInflater getSupportMenuInflater();
 }

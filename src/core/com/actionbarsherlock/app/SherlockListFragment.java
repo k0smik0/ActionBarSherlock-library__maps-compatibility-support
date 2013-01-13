@@ -2,27 +2,29 @@ package com.actionbarsherlock.app;
 
 import android.app.Activity;
 import android.support.v4.app.ListFragment;
-
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class SherlockListFragment extends ListFragment implements ISherlockFragment {
-	
-	private ISherlockActivity mActivity;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnCreateOptionsMenuListener;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnOptionsItemSelectedListener;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnPrepareOptionsMenuListener;
 
-    public ISherlockActivity getSherlockActivity() {
+public class SherlockListFragment extends ListFragment implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
+    private SherlockFragmentActivity mActivity;
+
+    public SherlockFragmentActivity getSherlockActivity() {
         return mActivity;
     }
 
     @Override
     public void onAttach(Activity activity) {
-        if (!(activity instanceof ISherlockActivity)) {
-            throw new IllegalStateException(getClass().getSimpleName() + " must be attached to class implementing ISherlockActivity.");
+        if (!(activity instanceof SherlockFragmentActivity)) {
+            throw new IllegalStateException(getClass().getSimpleName() + " must be attached to a SherlockFragmentActivity.");
         }
-        mActivity = (ISherlockActivity)activity;
+        mActivity = (SherlockFragmentActivity)activity;
 
         super.onAttach(activity);
     }

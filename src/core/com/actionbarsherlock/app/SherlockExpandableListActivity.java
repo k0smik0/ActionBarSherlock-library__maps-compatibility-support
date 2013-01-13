@@ -8,12 +8,17 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public abstract class SherlockExpandableListActivity extends ExpandableListActivity implements ISherlockActivity {
+public abstract class SherlockExpandableListActivity extends ExpandableListActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     private ActionBarSherlock mSherlock;
 
     protected final ActionBarSherlock getSherlock() {
@@ -27,11 +32,11 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
     ///////////////////////////////////////////////////////////////////////////
     // Action bar and mode
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public ActionBar getSupportActionBar() {
         return getSherlock().getActionBar();
     }
-    @Override
+
     public ActionMode startActionMode(ActionMode.Callback callback) {
         return getSherlock().startActionMode(callback);
     }
@@ -115,15 +120,15 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
     ///////////////////////////////////////////////////////////////////////////
     // Native menu handling
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public MenuInflater getSupportMenuInflater() {
         return getSherlock().getMenuInflater();
     }
-    @Override
+
     public void invalidateOptionsMenu() {
         getSherlock().dispatchInvalidateOptionsMenu();
     }
-    @Override
+
     public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
     }
@@ -169,7 +174,7 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
         }
         return false;
     }
-    @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
@@ -181,7 +186,7 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
         }
         return false;
     }
-    @Override
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
@@ -193,7 +198,7 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
         }
         return false;
     }
-    @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }
@@ -231,23 +236,23 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
     ///////////////////////////////////////////////////////////////////////////
     // Progress Indication
     ///////////////////////////////////////////////////////////////////////////
-    @Override
+
     public void setSupportProgress(int progress) {
         getSherlock().setProgress(progress);
     }
-    @Override
+
     public void setSupportProgressBarIndeterminate(boolean indeterminate) {
         getSherlock().setProgressBarIndeterminate(indeterminate);
     }
-    @Override
+
     public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
         getSherlock().setProgressBarIndeterminateVisibility(visible);
     }
-    @Override
+
     public void setSupportProgressBarVisibility(boolean visible) {
         getSherlock().setProgressBarVisibility(visible);
     }
-    @Override
+
     public void setSupportSecondaryProgress(int secondaryProgress) {
         getSherlock().setSecondaryProgress(secondaryProgress);
     }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/core"/>
-	<classpathentry kind="src" path="src/maps_plugin"/>
+	<classpathentry excluding="android/support/v4/app/MapFragmentDev.java" kind="src" path="src/maps_plugin"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry excluding="com/actionbarsherlock/app/SherlockActivity.java|com/actionbarsherlock/app/SherlockDialogFragment.java|com/actionbarsherlock/app/SherlockExpandableListActivity.java|com/actionbarsherlock/app/SherlockFragment.java|com/actionbarsherlock/app/SherlockFragmentActivity.java|com/actionbarsherlock/app/SherlockListActivity.java|com/actionbarsherlock/app/SherlockListFragment.java|com/actionbarsherlock/app/SherlockPreferenceActivity.java|android/support/v4/app/_ActionBarSherlockTrojanHorse.java" kind="src" path="old"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="output" path="bin/classes"/>
